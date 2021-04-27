@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -39,12 +40,21 @@ public class StudentAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return studentList.get(position).hashCode();
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView = mInflator.inflate(R.layout.list_view_row, parent, false);
+
+        TextView firstName = rowView.findViewById(R.id.first_name);
+        TextView lastName = rowView.findViewById(R.id.last_name);
+        TextView major = rowView.findViewById(R.id.major);
+
+        MainActivity.Student student = (MainActivity.Student) getItem(position);
+        firstName.setText(student.getFirstName());
+        lastName.setText(student.getLastName());
+        major.setText(student.getMajor());
 
         return rowView;
     }
