@@ -1,13 +1,24 @@
 package com.example.advancedadapter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ListAdapter;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView listView;
+    private ListAdapter StudentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +55,26 @@ public class MainActivity extends AppCompatActivity {
         RyanThompson.setLastName("Thompson");
         RyanThompson.setMajor("Business");
         students.add(RyanThompson);
+
+        listView = findViewById(R.id.student);
+        listView.setAdapter((android.widget.ListAdapter) StudentAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Item clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Item LONG-clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     public class Student {
@@ -87,7 +118,5 @@ public class MainActivity extends AppCompatActivity {
             return major;
         }
     }
-
-
 
 }
